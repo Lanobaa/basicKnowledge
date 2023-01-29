@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    let num1 = 55;
+    let num2 = 66;
+    function f1(num, num1) {
+      // 函数内部作用域
+      num = 100;
+      num1 = 200;
+      num2 = 300;
+      console.log('inside-num--', num);   // 1. 100
+      console.log('inside-num1--', num1); // 2. 200
+      console.log('inside-num2--', num2); // 3. 300
+    }
+    f1(num1, num2);
+    console.log('outside--num1---', num1); // 4. 55
+    console.log('outside--num2---', num2); // 5. 300 打印num2为300，在f1函数内部改变了变量值
+    console.log('outside--num---', num); // Uncaught ReferenceError: num is not defined
+</script>
+</body>
+</html>

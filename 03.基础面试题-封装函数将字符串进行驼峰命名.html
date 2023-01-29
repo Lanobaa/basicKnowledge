@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    // 基础面试题：已知字符串foo='get-element-by-id'，写一个函数将其转化为驼峰表示法getElementById
+    let foo = 'get-element-by-id';
+    function toCamelCaseFn1(str) {
+      const arr = str.split('-');
+      arr.forEach((item, index) => {
+        if (index !== 0) {
+          item = item.charAt(0).toUpperCase() + item.substring(1);
+        }
+      });
+      return arr.join('');
+    }
+    function toCamelCaseFn2(str) {
+      const arr = str.split('-').map((item, index) => {
+        if (index === 0) return item;
+        return item.replace(/(\s+|^)(\w)/g, function(s0, s1, s2) {
+          console.log('s0..', s0);
+          console.log('s1..', s1);
+          console.log('s2..', s2);
+          return s2.toUpperCase();
+        });
+      });
+      return arr.join('');
+    }
+    let a = toCamelCaseFn2(foo);
+    console.log('a..', a);
+</script>
+</body>
+</html>

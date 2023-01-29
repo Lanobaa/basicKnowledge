@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    /*
+    * js内存分为栈内存和堆内存
+    * 栈内存：其中存储基本类型值，其中定义的变量在栈内存中存储的是在堆内存中的地址引用
+    * 堆内存：其中存储复杂类型值或成为引用类型
+    * */
+    function Person(name, age, salary) {
+      this.name = name;
+      this.age = age;
+      this.salary = salary;
+    }
+
+    function f1(person) {
+      person.name = 'pual';
+      person = new Person('James', 20, 2000);
+      console.log('f1.inside.person.name...', person.name); // 2. James
+    }
+    var p = new Person('george', 18, 100);
+    console.log('p.name...', p.name); // 1. george
+    f1(p);
+    console.log('f1().person.name...', p.name); // 3. pual
+</script>
+</body>
+</html>
