@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    // 1、实用array.reverse()
+    // const originArr = ['a', 'b', 'c', 'd'];
+    // const newArr = originArr.reverse();
+    // console.log('origin.arr..', originArr); // ['d', 'c', 'b', 'a']
+    // 数组的reverse会修改原数组
+    // 2
+    const originArr = ['a', 'b', 'c', 'd', 'e'];
+    const customReverse = (arr) => {
+      // const a = [...arr];
+      // 或者
+      const a = arr.slice();
+      for (let i = 0; i < Math.floor(a.length / 2); i++) {
+        [a[i], a[a.length - 1 - i]] = [a[a.length - 1 - i], a[i]];
+      }
+      return a;
+    };
+    const reverseRes = customReverse(originArr);
+    console.log(originArr);
+    console.log(reverseRes);
+</script>
+</body>
+</html>
