@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+      .border {
+        height: 300px;
+        background: pink;
+        border: 1px solid #000;
+      }
+      @media screen and (-webkit-min-device-pixel-ratio: 2) {
+        .border {
+          border: 1px solid red;
+        }
+      }
+      @media screen and (-webkit-min-device-pixel-ratio: 3) {
+        .border {
+          border: 0.3333px solid #000;
+        }
+      }
+      .borderBackgroundImage {
+        width: 100px;
+        height: 100px;
+        background-image:
+                linear-gradient(180deg, red, red 50%, transparent 50%),
+                linear-gradient(270deg, red, red 50%, transparent 50%),
+                linear-gradient(0deg, red, red 50%, transparent 50%),
+                linear-gradient(90deg, red, red 50%, transparent 50%);
+        background-size: 100% 1px, 1px 100%, 100% 1px, 1px 100%;
+        background-repeat: no-repeat;
+        background-position: top, right top, bottom, left top;
+        padding: 10px;
+      }
+    </style>
+</head>
+<body>
+<div class="border"></div>
+<div class="borderBackgroundImage"></div>
+<script>
+    console.log('window.device.pixel.ratio....', window.devicePixelRatio);
+</script>
+</body>
+</html>

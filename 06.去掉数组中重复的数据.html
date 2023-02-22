@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+  /* 1. 利用indexOf */
+  let arr = [1, 2, 2, 4, null, null, '3', 'abc', 3, 5, 4, 1, 2, 2, 4, null, null, '3', 'abc', 3, 5, 4];
+  console.log('arr.', arr);
+  const uniqueFn = () => {
+    let uniqueArr = [];
+    arr.forEach((item) => {
+      if (uniqueArr.indexOf(item) === -1) {
+        uniqueArr.push(item);
+      }
+    });
+    return uniqueArr;
+  };
+
+  /* 2. 利用splice
+  *     使用双循环，拿数组的第一项和数组的剩余项，从后向前逆向依次对比
+  *     如果有相同项，就删除原数组的这这一项。
+  *     依次循环比对
+  *  */
+  const spliceUniqueReverseCompare = (newArr) => {
+    const arr = [...newArr];
+    for (let i = 0; i < arr.length; i++) {
+      for (let j = arr.length - 1; j > i; j--) {
+        if (arr[i] === arr[j]) {
+          arr.splice(j, 1);
+        }
+      }
+    }
+    return arr;
+  };
+  /* 3. 利用splice
+  *     使用双循环，拿数组的第一项和数组的剩余项，从前向后正向依次对比
+  *     如果有相同项，就删除原数组的这这一项。
+  *     依次循环比对
+  *  */
+  const spliceUniqueCompare = (newArr) => {
+    const arr = [...newArr];
+    for (let i = 0; i < arr.length; i++) {
+      for (let j = i + 1; j < arr.length; j++) {
+        if (arr[i] === arr[j]) {
+          arr.splice(j, 1);
+          // j--，避免数组被删除一项后，被删除后的项位置空缺，由后一位项补位，j--避免比较不到被补位的值
+          j--;
+        }
+      }
+    }
+    return arr;
+  }
+  console.log('splice.unique.compare...', spliceUniqueCompare(arr));
+  /* 4. 利用sort方法排序后，再循环，存在弊端 */
+  const uniqueSortArr = (arr) => {
+    const newArr = [...arr];
+    newArr.sort();
+    console.log('new.arr..sort...', newArr);
+    const unique = [];
+    newArr.forEach((item, index) => {
+      if (item !== newArr[index + 1]) {
+        console.log('item..', item);
+        console.log('index+1..', newArr[index + 1]);
+        unique.push(item)
+      }
+    });
+    console.log('unique.sort....', unique);
+  };
+  /* 5.利用filter+indexOf过滤 */
+  const filterUnique = (arr) => {
+    const newArr = [...arr];
+    return newArr.filter((item, index, arr) => {
+      console.log('indexof', arr.indexOf(item));
+      console.log('index.', index);
+      return arr.indexOf(item) === index;
+    });
+  }
+  /* 6. 利用filter + Object.hasOwnProperty() 利用对象的键名不可重复的特点 */
+  const filterHasOwnProperty = (arr) => {
+    const newArr = [...arr];
+    const obj = {};
+    return newArr.filter((item) => {
+      if (obj.hasOwnProperty(typeof item + item)) {
+        return false;
+      } else {
+        return obj[typeof item + item] = true;
+      }
+    });
+  };
+  console.log('filter+hasownproperty....', filterHasOwnProperty(arr));
+  /* 7. Array.prototype.reduce + Array.prototype.includes 处理*/
+  const reduceAndIncludesUnique = (arr) => {
+    const newArr = [...arr];
+    return newArr.reduce((previousValue, currentValue) => {
+      return previousValue.includes(currentValue) ? previousValue : previousValue.concat(currentValue);
+    }, []);
+  };
+  /* 8. new Set(), Array.from() */
+
+  const newArrUnique = (arr) => {
+    return [...new Set(arr)];
+  };
+
+  /* 9. new Map() */
+  const newMapUnique = (arr) => {
+    const map = new Map();
+    const newArr = [];
+    arr.forEach((item) => {
+      if (!map.has(item)) {
+        map.set(item, true);
+        newArr.push(item);
+      }
+    });
+    return newArr;
+  };
+
+</script>
+</body>
+</html>
