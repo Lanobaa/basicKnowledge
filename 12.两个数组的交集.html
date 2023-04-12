@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+  // 两个数组的交集 II
+  // 给你两个整数数组 nums1 和 nums2 ，请你以数组形式返回两数组的交集。
+  // 返回结果中每个元素出现的次数，应与元素在两个数组中都出现的次数一致（如果出现次数不一致，则考虑取较小值）。可以不考虑输出结果的顺序。
+  const nums1 = [1, 2, 2, 1];
+  const nums2 = [2, 2];
+  const nums3 = [4, 9, 5];
+  const nums4 = [9, 4, 9, 8, 4];
+  // 个人解题思路 字典
+  const intersectMap = function (nums1, nums2) {
+    const map = {};
+    const res = [];
+    const smallArr = nums1.length > nums2.length ? nums2 : nums1;
+    const largeArr = nums1.length > nums2.length ? nums1 : nums2;
+    for (let i of smallArr) {
+      if (map[i]) {
+        map[i][0] += 1;
+        map[i][1] += 1;
+      } else {
+        map[i] = [1, 1];
+      }
+    }
+    for (let j of largeArr) {
+      if (map[j]) {
+        const t = map[j][1] -= 1;
+        t >= 0 && res.push(j);
+        map[j][0] += 1;
+      }
+    }
+    return res;
+  };
+  // console.log('重复的项....', intersectMap(nums2, nums1));
+  // console.log('重复的项....', intersectMap(nums3, nums4));
+  const intersect2 = function (nums1, nums2) {
+    // 哈希表
+    const map = {}, arr = [];
+    for (const i of nums1) {
+      // 统计nums1中每个元素的个数
+      if (map[i]) {
+        map[i]++
+      } else {
+        map[i] = 1;
+      }
+    }
+    for (const j of nums2) {
+      // 记住当前元素的个数
+      const num = map[j];
+      // 判断当前元素个数，并一次压入arr中
+      if (num > 0) {
+        arr.push(j);
+        map[j]--;
+      }
+    }
+    console.log('map......----', map);
+    return arr;
+  };
+  // console.log('重复的项....', intersect2(nums2, nums1));
+  // console.log('重复的项....', intersect2(nums3, nums4));
+
+  // 标准map解法
+  const intersectOfficial = (nums1, nums2) => {
+    /*const obj1 = {};
+    const obj2 = {};
+    const resArr = [];
+    for (let i of nums1) {
+      if (obj1[i]) {
+        obj1[i] += 1;
+      } else {
+        obj1[i] = 1;
+      }
+    }
+    for (let j of nums2) {
+      if (obj2[j]) {
+        obj2[j] += 1;
+      } else {
+        obj2[j] = 1;
+      }
+    }
+    Object.keys(obj1).forEach((key) => {
+      if (obj1[key] && obj2[key]) {
+        const min = Math.min(obj1[key], obj2[key])
+        for (let m = 0; m < min; m++) {
+          resArr.push(key);
+        }
+      }
+    });
+    return resArr;*/
+    if (nums1.length > nums2.length) {
+      intersectOfficial(nums2, nums1);
+    }
+    const obj = {};
+    const res = [];
+    for (let i of nums1) {
+      if (obj[i]) {
+        obj[i] += 1;
+      } else {
+        obj[i] = 1;
+      }
+    }
+    for (let j of nums2) {
+      if (obj[j]) {
+        res.push(j);
+        obj[j]--;
+      }
+    }
+    return res;
+  };
+  console.log('official...', intersectOfficial(nums3, nums4));
+
+  // 双指针移动解法
+  const nums5 = [4, 9, 5, 1, 2, 4];
+  const nums6 = [9, 4, 9, 8, 4, 2, 10, 3];
+  const intersectDoublePointer = (nums1, nums2) => {
+    if (nums1.length > nums2.length) {
+      intersectDoublePointer(nums2, nums1);
+    }
+    const res = [];
+    const ns1 = nums1.sort((a, b) => a - b);
+    const ns2 = nums2.sort((a, b) => a - b);
+    let p1 = 0;
+    let p2 = 0;
+    // nums1是长度小的数组
+    while (p1 < ns1.length && p2 < ns2.length) {
+      if (ns1[p1] === ns2[p2]) {
+        res.push(ns1[p1]);
+        p1++;
+        p2++;
+      } else if (ns1[p1] < ns2[p2]) {
+        p1++;
+      } else if (ns1[p1] > ns2[p2]) {
+        p2++;
+      }
+    }
+    console.log('ns1.2...', ns1, ns2);
+    return res;
+  };
+  const a = intersectDoublePointer(nums5, nums6);
+  console.log('a..', a);
+</script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+  /*
+  两数之和
+  给定一个整数数组 nums 和一个整数目标值 target，请你在该数组中找出 和为目标值 target  的那 两个 整数，并返回它们的数组下标。
+  你可以假设每种输入只会对应一个答案。但是，数组中同一个元素在答案里不能重复出现。
+  你可以按任意顺序返回答案。
+  */
+  const target = 9;
+  const target1 = -8;
+  const target2 = 6;
+  const nums = [2, 7, 11, 15];
+  const nums1 = [3, 2, 5, 4];
+  const nums2 = [2, 3, 3];
+  const nums3 = [-1, -2, -3, -4, -5];
+  // 个人解题思路 一
+  // 以下方法执行效率低下
+  const twoSum = (nums, target) => {
+    let a = 0;
+    let b = 0;
+    const callback = (currentIndex) => {
+      return (ele, i) => ele === (target - nums[currentIndex]) && currentIndex !== i;
+    }
+    for (let i = 0; i < nums.length; i++) {
+      a = i;
+      if (nums.findIndex(callback(i)) >= 0) {
+        b = nums.findIndex(callback(i));
+        break;
+      }
+    }
+    return [a, b];
+  };
+  console.log('example.1....', twoSum(nums, target));
+  console.log('example.2....', twoSum(nums1, target));
+  console.log('example.3....', twoSum(nums2, target2));
+  console.log('example.4....', twoSum(nums3, target1));
+  // 个人解题思路 二
+  // 解题思路二效率翻倍，比思路一好些
+  const twoSum2 = (nums, target) => {
+    let a = 0;
+    let b = 0;
+    for (let i = 0; i < nums.length; i++) {
+      a = i;
+      for (let j = i + 1; j < nums.length; j++) {
+        if (target - nums[i] === nums[j]) {
+          b = j;
+          break;
+        }
+      }
+      if (b > 0) break;
+    }
+    return [a, b];
+  };
+  console.log('example.2..1....', twoSum2(nums, target));
+  console.log('example.2..2....', twoSum2(nums1, target));
+  console.log('example.2..3....', twoSum2(nums2, target2));
+  console.log('example.2..4....', twoSum2(nums3, target1));
+  // 标准解法, 效率最高，利用hash对象
+  const twoSumOfficial = (nums, target) => {
+    const hash = {};
+    for (let i = 0; i < nums.length; i++) {
+      if (hash[target - nums[i]] != null) {
+        return [i, hash[target - nums[i]]]
+      }
+      hash[nums[i]] = i;
+    }
+  };
+  console.log('example.official..1...', twoSumOfficial(nums, target));
+</script>
+</body>
+</html>

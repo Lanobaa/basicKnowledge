@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+  /*const nums = [0,0,1,1,1,2,2,3,3,4];
+  let removeDuplicates = function (nums) {
+    let a = 0;
+    for (let i = 0; i < nums.length; i++) {
+      if (nums[a] !== nums[i]) {
+        a++;
+        nums[a] = nums[i];
+      }
+    }
+    nums.splice(a + 1, nums.length - a)
+    return a + 1;
+  };
+  removeDuplicates(nums);
+  console.log('nums...', nums);*/
+  const prices = [7,1,5,3,6,4];
+  const prices2 = [1,2,3,4,5];
+  const prices3 = [7,6,4,3,1];
+  // 金良第一次解题思路；
+  const maxProfit = (prices) => {
+    let profit = 0;
+    let buyP = prices[0];
+    let saleP = 0;
+    let i = 0;
+    while (i < prices.length) {
+      if (prices[i] < prices[i + 1]) {
+        saleP = prices[i + 1];
+      } else {
+        if (saleP > 0) {
+          profit += saleP - buyP;
+        }
+        buyP = prices[i + 1];
+        saleP = 0;
+      }
+      i++;
+    }
+    return profit;
+  };
+  // leetCode 答案
+  const maxProfitExcellent = (prices) => {
+    let res = 0;
+    for (let i = 1; i < prices.length; i++) {
+      res += Math.max(0, prices[i] - prices[i - 1]);
+    }
+    return res;
+  }
+  console.log('ok...1', maxProfit(prices));
+  console.log('ok...2', maxProfit(prices2));
+  console.log('ok...3', maxProfit(prices3));
+  console.log('excellent...1', maxProfitExcellent(prices));
+  console.log('excellent...2', maxProfitExcellent(prices2));
+  console.log('excellent...3', maxProfitExcellent(prices3));
+</script>
+</body>
+</html>

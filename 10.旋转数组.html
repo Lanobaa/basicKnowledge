@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+  const nums = [1, 2, 3, 4, 5, 6, 7];
+  const rotate = (arr, k) => {
+    let i = 0;
+    while (i < k) {
+      const item = arr.splice(arr.length -1, 1);
+      arr.unshift(item[0]);
+      i++;
+    }
+  }
+  // rotate(nums, 6);
+  console.log('number...', nums);
+  const rotate1 = (arr, k) => {
+    const len = arr.length;
+    const nums = [...arr];
+    for (let i = 0; i < len; i++) {
+      arr[(k + i) % len] = nums[i];
+    }
+  };
+  rotate1(nums, 3);
+  console.log('nums...', nums);
+</script>
+</body>
+</html>
